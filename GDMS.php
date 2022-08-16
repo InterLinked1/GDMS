@@ -120,9 +120,9 @@ class GDMS {
 	/*! \brief Perform a POST request */
 	private static function post(String $endpoint, array $params = array()) {
 		$json = null;
-        if (!empty($params)) {
+		if (!empty($params)) {
 			$json = json_encode($params);
-        }
+		}
 		$ch = curl_init();
 		$options = array(
 			CURLOPT_RETURNTRANSFER => true,
@@ -149,9 +149,9 @@ class GDMS {
 
 	private function gsPost(String $endpoint, array $params = array()) {
 		$body = '';
-        if (!empty($params)) {
-            $body = json_encode($params);
-        }
+		if (!empty($params)) {
+			$body = json_encode($params);
+		}
 		$url = 'https://' . $this->domain . '/oapi/v' . $this->version . '/' . $endpoint . '?' . $this->basicParams($body);
 		$this->debug("POST: $url\r\n$body");
 		return static::post($url, $params);
