@@ -263,5 +263,33 @@ class GDMS {
 		$params['mac'] = $mac;
 		return $this->gsPost('device/account/info', $params);
 	}
+
+	/*! \brief Add task */
+	private function addTask(String $taskName, int $taskType, String $mac, int $execType, String $fwDownloadURL = '', int $orgID = 0) {
+		$params = array();
+		$params['taskName'] = $taskName;
+		$params['taskType'] = $taskType;
+		$params['macList'] = array($mac);
+		$params['execType'] = $execType;
+		if (strlen($fwDownloadURL) > 0) {
+			$params['firmwareDownloadUrl'] = $fwDownloadURL;
+		}
+		if ($orgID > 0) {
+			$params[0]['orgId'] = $orgID;
+		}
+		return $this->gsPost('task/add', $params);
+	}
+
+	/*! \brief Reboot device */
+	public function deviceReboot(String $mac, int $orgID = 0) {
+		$uniqueTaskName = static::timestamp() . "_" . $mac . "_Reboot";
+		return $this->addTask($uniqueTaskName, 1, $mac, 1, '', $orgID);
+	}
+
+	/*! \brief Factory reset device */
+	public function deviceFactoryReset(String $mac, int $orgID = 0) {
+		$uniqueTaskName = static::timestamp() . "_" . $mac . "_Reset";
+		return $this->addTask($uniqueTaskName, 2, $mac, 1, '', $orgID);
+	}
 }
 ?>

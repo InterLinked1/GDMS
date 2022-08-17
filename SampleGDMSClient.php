@@ -61,4 +61,8 @@ print_r($resp);
 /* Note: The MAC address can contain colons or not. Up to you. */
 $resp = $gdms->addDevice('00AABBCCDDFF', '207GHQXG70CCDDFF', 12345, '', 45789);
 print_r($resp);
+
+/* Reboot the ATA */
+$resp = $gdms->deviceReboot('00AABBCCDDFF');
+print_r($resp);
 ?>
