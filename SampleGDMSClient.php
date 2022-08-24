@@ -62,6 +62,10 @@ print_r($resp);
 $resp = $gdms->addDevice('00AABBCCDDFF', '207GHQXG70CCDDFF', 12345, '', 45789);
 print_r($resp);
 
+/* View the current details (yes, using the editDevice function) */
+$resp = $gdms->editDevice('00AABBCCDDFF', '207GHQXG70CCDDFF', 12345, '', 45789);
+print_r($resp);
+
 /* Reboot the ATA */
 $resp = $gdms->deviceReboot('00AABBCCDDFF');
 print_r($resp);

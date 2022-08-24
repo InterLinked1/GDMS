@@ -226,7 +226,7 @@ class GDMS {
 	 */
 	public function addDevice(String $mac, String $sn, int $siteID, String $deviceName = '', int $orgID = 0) {
 		$params = array();
-		$params[0] = array();
+		$params[0] = array(); /* Unlike most others, add accepts an array */
 		$params[0]['mac'] = $mac;
 		$params[0]['sn'] = $sn;
 		$params[0]['siteId'] = $siteID;
@@ -239,9 +239,32 @@ class GDMS {
 		return $this->gsPost('device/add', $params);
 	}
 
+	/*! \brief Edit or view current details of single device in GDMS
+	 * \param mac MAC address (with or without colons)
+	 * \param sn Serial Number
+	 * \param siteID Site ID
+	 * \param deviceName Device name (optional)
+	 * \param orgID Organization ID (optional)
+	 * \note Even though this is for editing, this is the best way to view details of a device, including those that are offline
+	 */
+	public function editDevice(String $mac, String $sn, int $siteID, String $deviceName = '', int $orgID = 0) {
+		$params = array();
+		$params['mac'] = $mac;
+		$params['sn'] = $sn;
+		$params['siteId'] = $siteID;
+		if (strlen($deviceName) > 0) {
+			$params['deviceName'] = $deviceName;
+		}
+		if ($orgID > 0) {
+			$params['orgId'] = $orgID;
+		}
+		return $this->gsPost('device/edit', $params);
+	}
+
 	/*!
 	 * \brief Get device details
 	 * \param isFirst Whether to request device details for first time (1 = submit request, 0 = retrieve info, within 1 minute of first request)
+	 * \note This only works for devices that are currently online
 	 */
 	public function deviceDetails(String $mac, bool $isFirst) {
 		$params = array();
