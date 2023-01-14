@@ -66,7 +66,15 @@ print_r($resp);
 $resp = $gdms->editDevice('00AABBCCDDFF', '207GHQXG70CCDDFF', 12345, '', 45789);
 print_r($resp);
 
+/* View the current details, if the device is offline. Avoid this API and use getDevice() instead if possible. */
+$resp = $gdms->deviceDetails('00AABBCCDDFF', 0);
+print_r($resp);
+
 /* Reboot the ATA */
 $resp = $gdms->deviceReboot('00AABBCCDDFF');
+print_r($resp);
+
+/* View details about the ATA. This works even when it's not online. */
+$resp = $gdms->getDevice('00AABBCCDDFF');
 print_r($resp);
 ?>

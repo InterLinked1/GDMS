@@ -217,6 +217,15 @@ class GDMS {
 		return $this->gsPost('device/list');
 	}
 
+	/*! \brief Retrieve a particular device
+	 * \note Unlike deviceDetails(), this works even when the device is not online.
+	 */
+	public function getDevice(String $mac) {
+		$params = array();
+		$params['mac'] = $mac;
+		return $this->gsPost('device/list', $params);
+	}
+
 	/*! \brief Add a single device to GDMS
 	 * \param mac MAC address (with or without colons)
 	 * \param sn Serial Number
@@ -264,7 +273,7 @@ class GDMS {
 	/*!
 	 * \brief Get device details
 	 * \param isFirst Whether to request device details for first time (1 = submit request, 0 = retrieve info, within 1 minute of first request)
-	 * \note This only works for devices that are currently online
+	 * \note This only works for devices that are currently online. Use getDevice() instead.
 	 */
 	public function deviceDetails(String $mac, bool $isFirst) {
 		$params = array();
